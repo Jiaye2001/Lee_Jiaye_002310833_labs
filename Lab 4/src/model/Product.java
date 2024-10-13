@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,26 +18,25 @@ public class Product {
     private String name;
     private int price;
     private int id;
-    
-    // by me
     private ImageIcon logoImage;
     
 
-    
-    // 06:31
+    // 存儲共享特徵的列表
     private ArrayList<Feature> features;
+    // 存儲每個特徵的對應值
+    private HashMap<Feature, Object> featureValues;
+    
+    
     private static int count = 0;
     
     public Product() {
         count++;
         id = count;
         //add
-        features = new ArrayList<Feature>();
-        
+        features = new ArrayList<Feature>();     
+        featureValues = new HashMap<>();
     }
 
-    
-    // by me
     public ImageIcon getLogoImage() {
         return logoImage;
     }
@@ -65,39 +65,41 @@ public class Product {
         this.price = price;
     }
     
-        
     public ArrayList<Feature> getFeatures() {
         return features;
     }
     
-    public void Features(ArrayList<Feature> features) {
+    public void setFeatures(ArrayList<Feature> features) {
         this.features = features;
     }
     
-//    public Feature addNewFeature() {
-//    Feature feature = new Feature(this); // 設置當前產品為擁有者
-//    features.add(feature);
-//    return feature;
-//    }
+    public void addFeature(String name, Object value) {
+        Feature newFeature = new Feature(name, value);
+        features.add(newFeature);
+    }
+    
     
     public Feature addNewFeature() {
-    Feature newFeature = new Feature("Default Name", "Default Value");
-    features.add(newFeature);
-    return newFeature;
+        Feature newFeature = new Feature("Default Name", "Default Value");
+        features.add(newFeature);
+        featureValues.put(newFeature, "Default Value"); // 為新特徵設置默認值
+        return newFeature;
+    }
+    
+    // 獲取特徵的值
+    public Object getFeatureValue(Feature feature) {
+        return featureValues.get(feature);
     }
 
-    
-//     public void removeFeature(int index) {
-//        if (index >= 0 && index < features.size()) {
-//            features.remove(index);
-//        }
-//    }
+    public void removeFeature(Feature feature) {
+        if (features.remove(feature)) {
+            featureValues.remove(feature);
+        }
+    }
     
     @Override
     public String toString() {
         return name;
     }
-
-
     
 }

@@ -16,8 +16,6 @@ public class Supplier {
     private String supplyName;
     private ProductCatalog productCatalog;
     private ImageIcon logoImage;
-
-     // by me
     private String description;
 
     
@@ -25,13 +23,9 @@ public class Supplier {
         return description;
     }
 
-   
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
-    
     
     public ImageIcon getLogoImage() {
         return logoImage;

@@ -20,7 +20,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Supplier;
 import model.SupplierDirectory;
-import ui.admin.ManageSuppliers;
 
 /**
  *

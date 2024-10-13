@@ -46,4 +46,26 @@ public class ProductCatalog {
     public int getProductCount(){
         return productCatalog.size();
     }
+    
+    public void addFeatureToProduct(int productId, String featureName, Object value) {
+    Product product = searchProduct(productId);
+        if (product != null) {
+          product.addFeature(featureName, value);
+        }
+    }
+    
+    
+    public ArrayList<Product> searchProductByFeature(String featureName) {
+    ArrayList<Product> matchingProducts = new ArrayList<>();
+    for (Product p : productCatalog) {
+        for (Feature feature : p.getFeatures()) {
+            if (feature.getName().equalsIgnoreCase(featureName)) {
+                matchingProducts.add(p);
+                break; // 找到匹配特徵後，跳出內層循環
+            }
+        }
+    }
+    return matchingProducts;
+}
+    
 }

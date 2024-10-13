@@ -294,9 +294,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
 
         workArea.remove(this);
         Component[] componentArray = workArea.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        
-            
+        Component component = componentArray[componentArray.length - 1];       
 //        ManageProductCatalogJPanel manageProductCatalogJPanel = (ManageProductCatalogJPanel) component;
 //        manageProductCatalogJPanel.refreshTable();
 
@@ -307,9 +305,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         catch(Exception e){
             SearchForProductJPanel searchProduct = (SearchForProductJPanel) component;
         }
-        
-        
-        
+ 
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.previous(workArea);
     }
@@ -344,7 +340,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         
         for (int i = 0; i < model.getRowCount(); i++) {
             Feature currentFeature = product.getFeatures().get(i);
-            currentFeature .setName(tblFeatures.getValueAt(i, 0).toString());
+            currentFeature.setName(tblFeatures.getValueAt(i, 0).toString());
             currentFeature.setValue(tblFeatures.getValueAt(i, 1));
     }
     }
@@ -357,9 +353,8 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         newFeature.setName("New Feature");
         newFeature.setValue("Type Value here");
         
-        saveFeatures();
-        
         refreshTable();
+        saveFeatures();
     }//GEN-LAST:event_btnAddFeatureActionPerformed
 
     private void btnRemoveFeatureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFeatureActionPerformed

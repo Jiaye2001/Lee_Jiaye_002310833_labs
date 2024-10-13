@@ -5,12 +5,21 @@
  */
 package ui.supplier;
 
+import java.awt.BorderLayout;
 import model.Product;
 import model.Supplier;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import model.Feature;
 import model.ProductCatalog;
 
 
@@ -21,10 +30,9 @@ import model.ProductCatalog;
  */
 public class SearchForProductJPanel extends javax.swing.JPanel {
 
-   JPanel workArea;
-   Supplier supplier;
-   // *
-   ProductCatalog productlist;
+    JPanel workArea;
+    Supplier supplier;
+    ProductCatalog productlist;
     
     /** Creates new form CreateProductJPanel */
     public SearchForProductJPanel(JPanel workArea, Supplier supplier) {
@@ -32,7 +40,6 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
         initComponents();
         this.workArea = workArea;
         this.supplier = supplier;
-        // *
         this.productlist = supplier.getProductCatalog();
     }
 
@@ -49,6 +56,9 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
         idField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        lblFeatures = new javax.swing.JLabel();
+        featureField = new javax.swing.JTextField();
+        searchFeaButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -70,13 +80,33 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblFeatures.setText("Product Feature:");
+
+        featureField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                featureFieldActionPerformed(evt);
+            }
+        });
+
+        searchFeaButton.setText("Search Product >>");
+        searchFeaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFeaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblFeatures)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(featureField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(searchFeaButton))
                     .addComponent(lblProductId)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -84,9 +114,9 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
                         .addComponent(lblTitle))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(searchButton)))
-                .addContainerGap(343, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +131,13 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(lblFeatures)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(featureField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchFeaButton))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {idField, searchButton});
@@ -110,33 +146,22 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 //         TODO add your handling code here:
-//        if (!idField.getText().isBlank()) {
-//        int productId = Integer.parseInt(idField.getText());
-//        Product foundProduct = supplier.getProductCatalog().searchProduct(productId);
-//        // 檢查產品是否存在
-//        if (idField != null) {
-//            ViewProductDetailJPanel detailPanel = new ViewProductDetailJPanel(workArea, foundProduct);
-//            workArea.add("ViewProductDetailJPanel", detailPanel);
-//            CardLayout layout = (CardLayout) workArea.getLayout();
-//            layout.next(workArea);
-//        } else {
-//            // 提示用戶產品未找到
-//            JOptionPane.showMessageDialog(null, "Product not found. Please check the Product ID and try again", "Warning", JOptionPane.WARNING_MESSAGE);
-//        }
-//    } else {
-//        // 提示用戶需要輸入產品ID
-//        JOptionPane.showMessageDialog(null, "Please enter a Product ID to search.", "Warning", JOptionPane.WARNING_MESSAGE);
-//    }
-//    // 可以選擇清空文本框或設置提示文本
-//    idField.setText("Type Product ID");
-
-
     
-        int id = idField.getText().equals("")? -1 : Integer.parseInt(idField.getText());
+        String idText = idField.getText().trim();
+        
+        int id;
+        try {
+            id = Integer.parseInt(idText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a numeric product ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            idField.setText("");
+            return;
+        }  
         
         if (productlist.searchProduct(id) == null
                 || idField.getText().isBlank()){
             JOptionPane.showMessageDialog(null, "Product not found", "Information", JOptionPane.INFORMATION_MESSAGE);
+            idField.setText("");
             return;
         }
         Product searchProduct = productlist.searchProduct(id);
@@ -144,6 +169,8 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
         workArea.add("ViewProductDetailJPanelSupplier", vpdjp);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
+        
+        idField.setText("");
         
 }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -162,12 +189,95 @@ public class SearchForProductJPanel extends javax.swing.JPanel {
         layout.previous(workArea);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void searchFeaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFeaButtonActionPerformed
+        // TODO add your handling code here:
+        
+    String productFeature = featureField.getText().trim();
+    
+    // 搜尋擁有特徵的產品
+    ArrayList<Product> matchingProducts = new ArrayList<>();
+    for (Product product : productlist.getProductCatalog()) {
+        for (Feature feature : product.getFeatures()) {
+            if (feature.getName().equalsIgnoreCase(productFeature)) {
+                matchingProducts.add(product);
+                break; // 一旦找到匹配，跳出內層迴圈
+            }
+        }
+    }
+
+    if (matchingProducts.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No products found with the feature: " + productFeature, "Information", JOptionPane.INFORMATION_MESSAGE);
+        featureField.setText("");
+        return;
+    }
+
+    // 準備顯示結果的數據
+    String[] columnNames = {"Product Name", "Feature", "Value"};
+    Object[][] data = new Object[matchingProducts.size()][];
+
+    for (int i = 0; i < matchingProducts.size(); i++) {
+        Product product = matchingProducts.get(i);
+        for (Feature feature : product.getFeatures()) {
+            if (feature.getName().equalsIgnoreCase(productFeature)) {
+                data[i] = new Object[]{product.getName(), feature.getName(), product.getFeatureValue(feature)};
+                break; // 一旦找到匹配，跳出內層迴圈
+            }
+        }
+    }
+
+    // 創建 JTable 以顯示結果
+    JTable table = new JTable(data, columnNames);
+    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JScrollPane scrollPane = new JScrollPane(table);
+    JDialog dialog = new JDialog((JFrame) null, "Search Results", true);
+    
+    // 添加 "Select" 按鈕
+    JButton selectButton = new JButton("Select");
+    selectButton.addActionListener(e -> {
+        if (table.getSelectedRow() != -1) {
+            Product selectedProduct = matchingProducts.get(table.getSelectedRow());
+            ViewProductDetailJPanel vpdjp = new ViewProductDetailJPanel(workArea, selectedProduct);
+            workArea.add("ViewProductDetailJPanelSupplier", vpdjp);
+            CardLayout layout = (CardLayout) workArea.getLayout();
+            layout.next(workArea);
+            dialog.dispose(); // 關閉對話框
+        } else {
+            JOptionPane.showMessageDialog(dialog, "Please select a product.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    });
+
+    // 將按鈕放到面板底部
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(selectButton);
+
+    // 創建對話框面板，使用 BorderLayout
+    JPanel dialogPanel = new JPanel(new BorderLayout());
+    dialogPanel.add(scrollPane, BorderLayout.CENTER);
+    dialogPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+    // 創建對話框並顯示
+    dialog.setContentPane(dialogPanel);
+    dialog.pack();
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+    
+    featureField.setText("");
+        
+    }//GEN-LAST:event_searchFeaButtonActionPerformed
+
+    private void featureFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_featureFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_featureFieldActionPerformed
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField featureField;
     private javax.swing.JTextField idField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel lblFeatures;
     private javax.swing.JLabel lblProductId;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JButton searchButton;
+    private javax.swing.JButton searchFeaButton;
     // End of variables declaration//GEN-END:variables
 }

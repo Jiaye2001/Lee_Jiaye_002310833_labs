@@ -11,7 +11,6 @@ package model;
  */
 public class Feature {
 
-  
     private Product owner;
     private String name;
     private Object value;
@@ -20,8 +19,7 @@ public class Feature {
         this.owner = owner;
     }
     
-    public Feature(String name, Object value) {
-        
+    public Feature(String name, Object value) {  
         this.name = name;
         this.value = value;
     }

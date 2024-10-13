@@ -233,12 +233,10 @@ public class AddSupplier extends javax.swing.JPanel {
         
         logoImage = null;
         imgLogo.setIcon(logoImage);
-  
         
     }//GEN-LAST:event_btnRemoveActionPerformed
-
-      
-      private void backAction() {
+   
+    private void backAction() {
         workArea.remove(this);
         Component[] componentArray = workArea.getComponents();
         Component component = componentArray[componentArray.length - 1];
