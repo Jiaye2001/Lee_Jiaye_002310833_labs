@@ -295,8 +295,6 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         workArea.remove(this);
         Component[] componentArray = workArea.getComponents();
         Component component = componentArray[componentArray.length - 1];       
-//        ManageProductCatalogJPanel manageProductCatalogJPanel = (ManageProductCatalogJPanel) component;
-//        manageProductCatalogJPanel.refreshTable();
 
         try {
             ManageProductCatalogJPanel manageProductCatalogJPanel = (ManageProductCatalogJPanel) component;

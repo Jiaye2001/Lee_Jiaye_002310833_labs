@@ -4,8 +4,6 @@
  */
 package ui.supplier;
 
-import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.net.MalformedURLException;
