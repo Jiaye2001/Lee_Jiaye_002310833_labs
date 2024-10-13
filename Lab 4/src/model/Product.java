@@ -73,12 +73,6 @@ public class Product {
         this.features = features;
     }
     
-    public void addFeature(String name, Object value) {
-        Feature newFeature = new Feature(name, value);
-        features.add(newFeature);
-    }
-    
-    
     public Feature addNewFeature() {
         Feature newFeature = new Feature("Default Name", "Default Value");
         features.add(newFeature);
@@ -88,7 +82,7 @@ public class Product {
     
     // 獲取特徵的值
     public Object getFeatureValue(Feature feature) {
-        return featureValues.get(feature);
+        return feature.getValue();
     }
 
     public void removeFeature(Feature feature) {

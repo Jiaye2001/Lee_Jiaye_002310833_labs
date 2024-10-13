@@ -46,15 +46,7 @@ public class ProductCatalog {
     public int getProductCount(){
         return productCatalog.size();
     }
-    
-    public void addFeatureToProduct(int productId, String featureName, Object value) {
-    Product product = searchProduct(productId);
-        if (product != null) {
-          product.addFeature(featureName, value);
-        }
-    }
-    
-    
+      
     public ArrayList<Product> searchProductByFeature(String featureName) {
     ArrayList<Product> matchingProducts = new ArrayList<>();
     for (Product p : productCatalog) {
