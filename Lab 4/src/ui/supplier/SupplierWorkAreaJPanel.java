@@ -20,7 +20,7 @@ import ui.LoginScreen;
 public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     JPanel mainWorkArea;
-    Supplier supplier;
+    private Supplier supplier;
     private JPanel userProcessContainer;
     private SupplierDirectory supplierDirectory;
 //    MasterOrderCatalog masterOrderCatalog;
@@ -32,10 +32,9 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         initComponents();
         this.mainWorkArea = mainWorkArea;
-        
         this.supplier = supplier;
-        if (supplier != null) lblWelcome.setText("Welcome to Lab 4, "+supplier.getSupplyName());
-        
+        if (supplier != null) lblWelcome.setText("Welcome to Lab 4, "+ supplier.getSupplyName());
+       
 //      masterOrderCatalog = moc;
     }
 
@@ -174,10 +173,12 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnSupplierProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierProfileActionPerformed
         // TODO add your handling code here:
-//        ModifySupplier as = new ModifySupplier(workArea, supplierDirectory, selectedSupplier);
- //       workArea.add("ModifySupplier", as);
+        ModifySupplier as = new ModifySupplier(workArea, supplierDirectory, supplier, this);
+        workArea.add("ModifySupplier", as);
         CardLayout layout = (CardLayout)workArea.getLayout();
         layout.next(workArea);
+
+
     }//GEN-LAST:event_btnSupplierProfileActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
@@ -195,6 +196,10 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnLogOutActionPerformed
 
+    public void updateSupplierName() {
+    lblWelcome.setText("Welcome to Lab 4, " + supplier.getSupplyName());
+}
+    
     public String toString() {
         return "Supplier";
     }

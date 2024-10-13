@@ -35,16 +35,19 @@ public class ModifySupplier extends javax.swing.JPanel {
     private JPanel workArea;
     private SupplierDirectory supplierDirectory;
     private Supplier supplier;
+    private SupplierWorkAreaJPanel supplierWorkAreaPanel;
     private final JFileChooser fileChooser = new JFileChooser();
     ImageIcon logoImage;
 
     
     
-    public ModifySupplier(JPanel workArea, SupplierDirectory supplierDirectory, Supplier supplier) {
+    public ModifySupplier(JPanel workArea, SupplierDirectory supplierDirectory, Supplier supplier, SupplierWorkAreaJPanel supplierWorkAreaPanel) {
         initComponents();
         this.supplier = supplier;
         this.workArea = workArea;
         this.supplierDirectory = supplierDirectory;
+        this.supplierWorkAreaPanel = supplierWorkAreaPanel;
+        
         
         
         txtName.setText(supplier.getSupplyName());
@@ -64,11 +67,7 @@ public class ModifySupplier extends javax.swing.JPanel {
         fileChooser.setFileFilter(pngFilter);
         
         
-
-        
-        
-        
-        
+     
         
     }
 
@@ -91,11 +90,10 @@ public class ModifySupplier extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        backButton = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        txtDesc.setEditable(false);
+        setBackground(new java.awt.Color(255, 255, 255));
+
         txtDesc.setColumns(20);
         txtDesc.setRows(5);
         jScrollPane1.setViewportView(txtDesc);
@@ -124,26 +122,9 @@ public class ModifySupplier extends javax.swing.JPanel {
 
         lblName.setText("Name:");
 
-        txtName.setEditable(false);
-
         lblTitle.setText("Modify Supplier Information:");
 
-        backButton.setText("<< Back");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
         btnSave.setText("Save");
-        btnSave.setEnabled(false);
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -154,23 +135,23 @@ public class ModifySupplier extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(202, 202, 202)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(111, 111, 111))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(lblDescription)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(123, 123, 123)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblDescription)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(lblName)))
-                        .addComponent(lblLogo))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(181, 181, 181)
+                            .addComponent(lblName))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(156, 156, 156)
+                            .addComponent(lblLogo)))
                     .addGap(22, 22, 22)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtName)
@@ -187,25 +168,21 @@ public class ModifySupplier extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(383, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnSave))
-                .addGap(38, 38, 38))
+                .addGap(139, 139, 139)
+                .addComponent(lblDescription)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(74, 74, 74))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(37, 37, 37)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(backButton)
-                        .addComponent(lblTitle))
-                    .addGap(41, 41, 41)
+                    .addGap(40, 40, 40)
+                    .addComponent(lblTitle)
+                    .addGap(45, 45, 45)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblName))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblDescription)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(11, 11, 11)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -249,44 +226,22 @@ public class ModifySupplier extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-        workArea.remove(this);
-        CardLayout layout = (CardLayout)workArea.getLayout();
-        layout.previous(workArea);
-    }//GEN-LAST:event_backButtonActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         supplier.setSupplyName(txtName.getText());
         supplier.setDescription(txtDesc.getText());
         supplier.setLogoImage(logoImage);
-
-        JOptionPane.showMessageDialog(this, "Supplier successfully modified", "Warning", JOptionPane.INFORMATION_MESSAGE);
-        backAction();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(this, "Supplier information updated.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        supplierWorkAreaPanel.updateSupplierName();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     
-    private void backAction() {
-        workArea.remove(this);
-        Component[] componentArray = workArea.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        ManageSuppliers manageSuppliersJPanel = (ManageSuppliers) component;
-        manageSuppliersJPanel.refreshTable();
-        CardLayout layout = (CardLayout) workArea.getLayout();
-        layout.previous(workArea);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
     private javax.swing.JButton btnAttach;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescription;
