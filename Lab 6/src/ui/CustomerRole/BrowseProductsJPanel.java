@@ -257,7 +257,7 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(lblTitle)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {spnQuantity, txtSalesPrice});
@@ -297,9 +297,9 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
                     .addComponent(btnRemoveOrderItem)
                     .addComponent(btnModifyQuantity)
                     .addComponent(txtNewQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -342,6 +342,7 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
        
+        
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnModifyQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyQuantityActionPerformed
@@ -403,6 +404,18 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRemoveOrderItemActionPerformed
 
     private void btnViewOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderItemActionPerformed
+        
+        int selectedRowIndex = tblProductCatalog.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select the item first.");
+            return;
+        }
+        
+        OrderItem item = (OrderItem) tblCart.getValueAt(selectedRowIndex, 0);
+        ViewOrderItemDetailJPanel voidp = new ViewOrderItemDetailJPanel(userProcessContainer, item);
+        userProcessContainer.add("SupplierWorkAreaJPanel", voidp);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
         
     }//GEN-LAST:event_btnViewOrderItemActionPerformed
 
