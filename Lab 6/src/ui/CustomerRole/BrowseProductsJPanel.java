@@ -35,6 +35,9 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.supplierDirectory = supplierDirectory;
         this.masterOrderList = masterOrderList;
+        
+        populateCombo();
+        populateProductTable();
     }
 
     
@@ -294,6 +297,8 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
         // TODO add your handling code here:
         
+        populateProductTable();
+        
     }//GEN-LAST:event_cmbSupplierActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -317,7 +322,9 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModifyQuantityActionPerformed
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
-        
+
+        String productName = txtSearch.getText();
+        populateProductTable(productName);
     }//GEN-LAST:event_btnSearchProductActionPerformed
 
     private void btnRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderItemActionPerformed
@@ -354,4 +361,56 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtSalesPrice;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void populateCombo() {
+        
+        cmbSupplier.removeAllItems();
+        for (Supplier s : supplierDirectory.getSupplierlist()) {
+            cmbSupplier.addItem(s);
+        }
+    }
+
+    private void populateProductTable() {
+       
+        Supplier selectedSupplier = (Supplier) cmbSupplier.getSelectedItem();
+        
+        if (selectedSupplier == null) {
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+
+        for (Product p : selectedSupplier.getProductCatalog().getProductcatalog()) {
+            Object row[] = new Object[4];
+            row[0] = p;
+            row[1] = p.getModelNumber();
+            row[2] = p.getPrice();
+            row[3] = p.getAvail();
+            model.addRow(row);
+        
+        }
+    }
+    
+    private void populateProductTable(String keyword) {
+        
+        DefaultTableModel model = (DefaultTableModel) tblProductCatalog.getModel();
+        model.setRowCount(0);
+
+        for (Supplier s : supplierDirectory.getSupplierlist()) {
+        
+            for (Product p : s.getProductCatalog().getProductcatalog()) {
+                if (p.getProdName().equalsIgnoreCase(keyword)) {
+            
+                    Object row[] = new Object[4];
+                    row[0] = p;
+                    row[1] = p.getModelNumber();
+                    row[2] = p.getPrice();
+                    row[3] = p.getAvail();
+                    model.addRow(row);
+                }
+        
+            }
+        }
+    }
 }
