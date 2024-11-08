@@ -30,4 +30,15 @@ public class Order {
         OrderItem orderItem = new OrderItem(product, price, quantity);
         orderItemList.add(orderItem);
     }
+    
+    public OrderItem findProduct (Product product) {
+        
+        for (OrderItem oi : this.getOrderItemList()) {
+            if (oi.getProduct().equals(product)) {
+                return oi;
+            }       
+        }
+        return null;
+    }
+    
 }
