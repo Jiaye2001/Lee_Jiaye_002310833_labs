@@ -34,6 +34,7 @@ public class AnalysisHelper {
         System.out.println("Q1 - Average number of likes per comments: " + likeNumber / commentNumber);
             
     }
+    
     public void getMaxLikeCommentPost() {
         DataStore data = DataStore.getInstance();
         Comment commentWithMaxLikes = null;
@@ -51,4 +52,21 @@ public class AnalysisHelper {
         
         System.out.println("Q2 - Post with most likes per comment: " + data.getPosts().get(postId).getPostId());
     }
+    
+    public void getPostWithMostComments() {
+        DataStore data = DataStore.getInstance();
+        Post postWithMostComments = null;
+        for (Post p : data.getPosts().values()) {
+            if (postWithMostComments == null) {
+                postWithMostComments = p;
+            }
+            if (p.getComments().size() > postWithMostComments.getComments().size()) {
+                postWithMostComments = p;
+            }
+        }
+        
+        System.out.println("Q3 - Post with most comments: " + postWithMostComments.getPostId());
+    }
+    
+    
 }
